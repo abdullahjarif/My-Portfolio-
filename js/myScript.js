@@ -1,508 +1,448 @@
-// Mobile Menu Toggle
-const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-const mobileNav = document.getElementById('mobileNav');
-const menuIcon = document.getElementById('menuIcon');
-
-mobileMenuBtn.addEventListener('click', () => {
-    mobileNav.classList.toggle('active');
-    
-    if (mobileNav.classList.contains('active')) {
-        menuIcon.className = 'fas fa-times';
-    } else {
-        menuIcon.className = 'fas fa-bars';
-    }
-});
-
-// Close mobile menu when clicking on a link
-const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-mobileNavLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        mobileNav.classList.remove('active');
-        menuIcon.className = 'fas fa-bars';
-    });
-});
-
-// Close mobile menu when window is resized to desktop
-window.addEventListener('resize', () => {
-    if (window.innerWidth >= 768) {
-        mobileNav.classList.remove('active');
-        menuIcon.className = 'fas fa-bars';
-    }
-});
-
-// Smooth scrolling for navigation links
-const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
-navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
+// Main JavaScript functionality
+class Portfolio {
+    constructor() {
+        this.activeSection = 'home';
+        this.isLoading = true;
+        this.loadingProgress = 0;
+        this.currentFilter = 'all';
         
-        if (targetSection) {
-            targetSection.scrollIntoView({
-                behavior: 'smooth'
-            });
-        }
-    });
-});
-
-// Active navigation link highlighting
-window.addEventListener('scroll', () => {
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    let current = '';
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (scrollY >= (sectionTop - 200)) {
-            current = section.getAttribute('id');
-        }
-    });
-
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${current}`) {
-            link.classList.add('active');
-        }
-    });
-});
-
-// Typing Animation
-const roles = ['Full Stack Developer', 'UI/UX Designer', 'Data Scientist'];
-let currentRoleIndex = 0;
-let currentCharIndex = 0;
-let isDeleting = false;
-const typedTextElement = document.getElementById('typedText');
-
-function typeRole() {
-    const currentRole = roles[currentRoleIndex];
-    
-    if (!isDeleting) {
-        typedTextElement.textContent = currentRole.slice(0, currentCharIndex + 1);
-        currentCharIndex++;
-        
-        if (currentCharIndex === currentRole.length) {
-            setTimeout(() => {
-                isDeleting = true;
-            }, 2000);
-        }
-    } else {
-        typedTextElement.textContent = currentRole.slice(0, currentCharIndex - 1);
-        currentCharIndex--;
-        
-        if (currentCharIndex === 0) {
-            isDeleting = false;
-            currentRoleIndex = (currentRoleIndex + 1) % roles.length;
-        }
+        this.init();
     }
     
-    const typingSpeed = isDeleting ? 50 : 100;
-    setTimeout(typeRole, typingSpeed);
-}
-
-// Start typing animation
-typeRole();
-
-// Skills Animation
-function animateSkills() {
-    const progressBars = document.querySelectorAll('.progress-fill');
-    const circularSkills = document.querySelectorAll('.circular-progress');
+    init() {
+        this.setupLoading();
+        this.setupNavigation();
+        this.setupScrollObserver();
+        this.setupHeroTyping();
+        this.setupContactForm();
+        this.setupProjectFilters();
+        this.populateContent();
+    }
     
-    // Animate progress bars
-    progressBars.forEach(bar => {
-        const width = bar.getAttribute('data-width');
-        bar.style.width = width + '%';
-    });
-    
-    // Animate circular progress
-    circularSkills.forEach(skill => {
-        const percentage = skill.getAttribute('data-percentage');
-        const circle = skill.querySelector('.progress-ring-fill');
-        const circumference = 2 * Math.PI * 50; // radius = 50
-        const offset = circumference - (percentage / 100) * circumference;
+    // Loading Screen
+    setupLoading() {
+        const loadingStages = [
+            { progress: 20, text: 'Loading assets...' },
+            { progress: 40, text: 'Preparing portfolio...' },
+            { progress: 60, text: 'Setting up animations...' },
+            { progress: 80, text: 'Finalizing content...' },
+            { progress: 100, text: 'Ready!' }
+        ];
         
-        circle.style.strokeDashoffset = offset;
-    });
-}
-
-// Intersection Observer for animations
-const observerOptions = {
-    threshold: 0.3,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            if (entry.target.id === 'skills') {
-                animateSkills();
+        const progressFill = document.getElementById('progress-fill');
+        const loadingText = document.getElementById('loading-text');
+        const loadingPercentage = document.getElementById('loading-percentage');
+        
+        const updateProgress = () => {
+            this.loadingProgress = Math.min(this.loadingProgress + Math.random() * 8 + 2, 100);
+            
+            progressFill.style.width = `${this.loadingProgress}%`;
+            loadingPercentage.textContent = `${Math.floor(this.loadingProgress)}%`;
+            
+            // Update loading text based on progress
+            const currentStage = loadingStages.find(stage => 
+                this.loadingProgress >= stage.progress - 20 && 
+                this.loadingProgress < stage.progress + 20
+            );
+            
+            if (currentStage) {
+                loadingText.textContent = currentStage.text;
             }
             
-            // Add fade-in animation to cards
-            const cards = entry.target.querySelectorAll('.education-card, .service-card');
-            cards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, index * 100);
-            });
-        }
-    });
-}, observerOptions);
-
-// Observe sections for animations
-const sections = document.querySelectorAll('section');
-sections.forEach(section => {
-    observer.observe(section);
-});
-
-// Initialize card animations
-document.addEventListener('DOMContentLoaded', () => {
-    const cards = document.querySelectorAll('.education-card, .service-card');
-    cards.forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    });
-});
-
-// Contact Form Handling
-const contactForm = document.getElementById('contactForm');
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    // Get form data
-    const formData = new FormData(contactForm);
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const subject = formData.get('subject');
-    const message = formData.get('message');
-    
-    // Simple validation
-    if (!name || !email || !subject || !message) {
-        alert('Please fill in all fields');
-        return;
+            if (this.loadingProgress >= 100) {
+                loadingText.textContent = 'Complete!';
+                setTimeout(() => this.hideLoading(), 500);
+                return;
+            }
+            
+            setTimeout(updateProgress, 120);
+        };
+        
+        // Start loading after a brief delay
+        setTimeout(updateProgress, 100);
     }
     
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        alert('Please enter a valid email address');
-        return;
+    hideLoading() {
+        const loadingScreen = document.getElementById('loading-screen');
+        const mainContent = document.getElementById('main-content');
+        
+        loadingScreen.classList.add('hidden');
+        mainContent.style.opacity = '0';
+        mainContent.style.display = 'block';
+        
+        // Fade in main content
+        setTimeout(() => {
+            mainContent.style.transition = 'opacity 0.5s ease-out';
+            mainContent.style.opacity = '1';
+            this.isLoading = false;
+            this.animateSkillBars();
+        }, 100);
     }
     
-    // Simulate form submission
-    const submitBtn = contactForm.querySelector('button[type="submit"]');
-    const originalText = submitBtn.innerHTML;
-    
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-    submitBtn.disabled = true;
-    
-    setTimeout(() => {
-        alert('Message sent successfully! Thank you for contacting me.');
-        contactForm.reset();
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = false;
-    }, 2000);
-});
-
-// Parallax effect for hero section
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const heroImage = document.querySelector('.profile-img');
-    
-    if (heroImage) {
-        const speed = scrolled * 0.5;
-        heroImage.style.transform = `translateY(${speed}px)`;
-    }
-});
-
-// Add loading animation for images
-document.addEventListener('DOMContentLoaded', () => {
-    const images = document.querySelectorAll('img');
-    
-    images.forEach(img => {
-        img.addEventListener('load', () => {
-            img.style.opacity = '1';
+    // Navigation
+    setupNavigation() {
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
         });
         
-        // If image is already loaded
-        if (img.complete) {
-            img.style.opacity = '1';
-        } else {
-            img.style.opacity = '0';
-            img.style.transition = 'opacity 0.3s ease';
-        }
-    });
-});
-
-// Add smooth reveal animations
-const revealElements = document.querySelectorAll('.hero-text, .about-text, .section-header');
-
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-        }
-    });
-}, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-});
-
-revealElements.forEach(element => {
-    element.style.opacity = '0';
-    element.style.transform = 'translateY(30px)';
-    element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-    revealObserver.observe(element);
-});
-
-// Google Maps Integration
-let map;
-let marker;
-let isFullscreen = false;
-
-// Initialize Google Map
-function initMap() {
-    // Dhaka, Bangladesh coordinates
-    const dhakaLocation = { lat: 23.8103, lng: 90.4125 };
-    
-    // Remove loading indicator
-    const mapElement = document.getElementById('map');
-    const loadingElement = mapElement.querySelector('.map-loading');
-    if (loadingElement) {
-        loadingElement.remove();
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                this.scrollToSection(targetId);
+                
+                // Close mobile menu
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+        
+        // Hero button actions
+        document.querySelectorAll('[data-action]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const action = e.target.getAttribute('data-action');
+                this.scrollToSection(action);
+            });
+        });
     }
     
-    // Initialize map
-    map = new google.maps.Map(mapElement, {
-        zoom: 12,
-        center: dhakaLocation,
-        styles: [
-            {
-                "elementType": "geometry",
-                "stylers": [{"color": "#1e293b"}]
-            },
-            {
-                "elementType": "labels.text.stroke",
-                "stylers": [{"color": "#1e293b"}]
-            },
-            {
-                "elementType": "labels.text.fill",
-                "stylers": [{"color": "#94a3b8"}]
-            },
-            {
-                "featureType": "administrative.locality",
-                "elementType": "labels.text.fill",
-                "stylers": [{"color": "#3b82f6"}]
-            },
-            {
-                "featureType": "poi",
-                "elementType": "labels.text.fill",
-                "stylers": [{"color": "#94a3b8"}]
-            },
-            {
-                "featureType": "poi.park",
-                "elementType": "geometry",
-                "stylers": [{"color": "#334155"}]
-            },
-            {
-                "featureType": "poi.park",
-                "elementType": "labels.text.fill",
-                "stylers": [{"color": "#10b981"}]
-            },
-            {
-                "featureType": "road",
-                "elementType": "geometry",
-                "stylers": [{"color": "#475569"}]
-            },
-            {
-                "featureType": "road",
-                "elementType": "geometry.stroke",
-                "stylers": [{"color": "#334155"}]
-            },
-            {
-                "featureType": "road",
-                "elementType": "labels.text.fill",
-                "stylers": [{"color": "#94a3b8"}]
-            },
-            {
-                "featureType": "road.highway",
-                "elementType": "geometry",
-                "stylers": [{"color": "#3b82f6"}]
-            },
-            {
-                "featureType": "road.highway",
-                "elementType": "geometry.stroke",
-                "stylers": [{"color": "#2563eb"}]
-            },
-            {
-                "featureType": "road.highway",
-                "elementType": "labels.text.fill",
-                "stylers": [{"color": "#ffffff"}]
-            },
-            {
-                "featureType": "transit",
-                "elementType": "geometry",
-                "stylers": [{"color": "#475569"}]
-            },
-            {
-                "featureType": "transit.station",
-                "elementType": "labels.text.fill",
-                "stylers": [{"color": "#94a3b8"}]
-            },
-            {
-                "featureType": "water",
-                "elementType": "geometry",
-                "stylers": [{"color": "#0f172a"}]
-            },
-            {
-                "featureType": "water",
-                "elementType": "labels.text.fill",
-                "stylers": [{"color": "#06b6d4"}]
-            },
-            {
-                "featureType": "water",
-                "elementType": "labels.text.stroke",
-                "stylers": [{"color": "#0f172a"}]
+    scrollToSection(sectionId) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+    
+    setupScrollObserver() {
+        const observerOptions = {
+            threshold: 0.6,
+            rootMargin: '-10% 0px -10% 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.activeSection = entry.target.id;
+                    this.updateActiveNavLink();
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+    }
+    
+    updateActiveNavLink() {
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('data-section') === this.activeSection) {
+                link.classList.add('active');
             }
-        ],
-        mapTypeControl: false,
-        streetViewControl: false,
-        fullscreenControl: false
-    });
+        });
+    }
     
-    // Add custom marker
-    marker = new google.maps.Marker({
-        position: dhakaLocation,
-        map: map,
-        title: 'Abdullah Jarif - Dhaka, Bangladesh',
-        icon: {
-            url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
-                <svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="20" cy="20" r="18" fill="#3b82f6" stroke="#ffffff" stroke-width="2"/>
-                    <circle cx="20" cy="20" r="8" fill="#ffffff"/>
-                </svg>
-            `),
-            scaledSize: new google.maps.Size(40, 40),
-            anchor: new google.maps.Point(20, 20)
-        },
-        animation: google.maps.Animation.BOUNCE
-    });
+    // Hero Typing Animation
+    setupHeroTyping() {
+        const typingText = document.getElementById('typing-text');
+        const typingSubtitle = document.getElementById('typing-subtitle');
+        const fullText = "Hi, I'm Abdullah Jarif";
+        const subtitle = "Full Stack Developer & Problem Solver";
+        
+        let i = 0;
+        const typeText = () => {
+            if (i < fullText.length) {
+                typingText.textContent = fullText.slice(0, i + 1);
+                i++;
+                setTimeout(typeText, 100);
+            } else {
+                // Start subtitle typing
+                let j = 0;
+                const typeSubtitle = () => {
+                    if (j < subtitle.length) {
+                        typingSubtitle.textContent = subtitle.slice(0, j + 1);
+                        j++;
+                        setTimeout(typeSubtitle, 50);
+                    }
+                };
+                setTimeout(typeSubtitle, 500);
+            }
+        };
+        
+        // Start typing after loading is complete
+        setTimeout(() => {
+            if (!this.isLoading) {
+                typeText();
+            } else {
+                // Wait for loading to complete
+                const checkLoading = () => {
+                    if (!this.isLoading) {
+                        typeText();
+                    } else {
+                        setTimeout(checkLoading, 100);
+                    }
+                };
+                checkLoading();
+            }
+        }, 1000);
+    }
     
-    // Stop bouncing after 3 seconds
-    setTimeout(() => {
-        marker.setAnimation(null);
-    }, 3000);
+    // Contact Form
+    setupContactForm() {
+        const form = document.getElementById('contact-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const formStatus = document.getElementById('form-status');
+        
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.classList.add('loading');
+            submitBtn.innerHTML = `
+                <div class="loading-spinner-btn"></div>
+                <span>Sending...</span>
+            `;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                // Reset button
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('loading');
+                submitBtn.innerHTML = `
+                    <i class="fas fa-paper-plane"></i>
+                    <span>Send Message</span>
+                `;
+                
+                // Show success message
+                formStatus.textContent = "Message sent successfully! I'll get back to you soon.";
+                formStatus.className = 'form-status success show';
+                
+                // Reset form
+                form.reset();
+                
+                // Hide status after 3 seconds
+                setTimeout(() => {
+                    formStatus.classList.remove('show');
+                }, 3000);
+            }, 1500);
+        });
+    }
     
-    // Add info window
-    const infoWindow = new google.maps.InfoWindow({
-        content: `
-            <div style="color: #1e293b; padding: 10px; font-family: 'Inter', sans-serif;">
-                <h3 style="margin: 0 0 8px 0; color: #3b82f6;">Abdullah Jarif</h3>
-                <p style="margin: 0; font-size: 14px;">Full Stack Developer</p>
-                <p style="margin: 4px 0 0 0; font-size: 12px; color: #64748b;">Dhaka, Bangladesh</p>
+    // Project Filters
+    setupProjectFilters() {
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active filter
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                this.currentFilter = btn.getAttribute('data-filter');
+                this.filterProjects();
+            });
+        });
+    }
+    
+    filterProjects() {
+        const projectCards = document.querySelectorAll('.project-card');
+        
+        projectCards.forEach(card => {
+            const category = card.getAttribute('data-category');
+            
+            if (this.currentFilter === 'all' || category === this.currentFilter) {
+                card.classList.remove('hidden');
+            } else {
+                card.classList.add('hidden');
+            }
+        });
+    }
+    
+    // Populate Content
+    populateContent() {
+        this.populateAbout();
+        this.populateSkills();
+        this.populateEducation();
+        this.populatePublications();
+        this.populateProjects();
+    }
+    
+    populateAbout() {
+        const description = document.getElementById('about-description');
+        const highlights = document.getElementById('about-highlights');
+        
+        description.textContent = portfolioData.about.description;
+        
+        highlights.innerHTML = portfolioData.about.highlights.map(highlight => `
+            <div class="highlight-card">
+                <div class="highlight-icon">${highlight.icon}</div>
+                <h4 class="highlight-title">${highlight.title}</h4>
+                <p class="highlight-description">${highlight.description}</p>
             </div>
-        `
-    });
+        `).join('');
+    }
     
-    // Show info window on marker click
-    marker.addListener('click', () => {
-        infoWindow.open(map, marker);
-    });
+    populateSkills() {
+        const container = document.getElementById('skills-container');
+        
+        container.innerHTML = portfolioData.skills.map(category => `
+            <div class="skills-category glass">
+                <h3>${category.category}</h3>
+                <div class="skills-list">
+                    ${category.items.map(skill => `
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">${skill.name}</span>
+                                <span class="skill-level">${skill.level}%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-level="${skill.level}"></div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    animateSkillBars() {
+        const skillBars = document.querySelectorAll('.skill-progress');
+        
+        skillBars.forEach((bar, index) => {
+            setTimeout(() => {
+                const level = bar.getAttribute('data-level');
+                bar.style.width = `${level}%`;
+            }, index * 100);
+        });
+    }
+    
+    populateEducation() {
+        const timeline = document.getElementById('education-timeline');
+        
+        timeline.innerHTML = `
+            <div class="timeline-line"></div>
+            ${portfolioData.education.map(item => `
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="education-card">
+                        <div class="education-header">
+                            <h3 class="education-degree">${item.degree}</h3>
+                            <span class="education-year">${item.year}</span>
+                        </div>
+                        <p class="education-institution">${item.institution}</p>
+                        <p class="education-description">${item.description}</p>
+                        ${item.gpa ? `<p class="education-gpa">GPA: ${item.gpa}</p>` : ''}
+                    </div>
+                </div>
+            `).join('')}
+        `;
+    }
+    
+    populatePublications() {
+        const grid = document.getElementById('publications-grid');
+        
+        grid.innerHTML = portfolioData.publications.map(pub => `
+            <div class="publication-card">
+                <div class="publication-header">
+                    <h3 class="publication-title">${pub.title}</h3>
+                    ${pub.link ? `<a href="${pub.link}" class="publication-link" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>` : ''}
+                </div>
+                <p class="publication-journal">${pub.journal}</p>
+                <div class="publication-meta">
+                    <i class="fas fa-calendar"></i>
+                    <span>${pub.year}</span>
+                </div>
+                <p class="publication-abstract">${pub.abstract}</p>
+                ${pub.citations ? `<div class="publication-citations">Citations: ${pub.citations}</div>` : ''}
+            </div>
+        `).join('');
+    }
+    
+    populateProjects() {
+        const grid = document.getElementById('projects-grid');
+        
+        grid.innerHTML = portfolioData.projects.map(project => `
+            <div class="project-card" data-category="${project.category}">
+                <div class="project-image">
+                    ${project.icon}
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">${project.title}</h3>
+                    <p class="project-description">${project.description}</p>
+                    <div class="project-technologies">
+                        ${project.technologies.map(tech => `
+                            <span class="tech-tag">${tech}</span>
+                        `).join('')}
+                    </div>
+                    <div class="project-links">
+                        ${project.demo ? `
+                            <a href="${project.demo}" class="project-link demo-link" target="_blank" rel="noopener noreferrer">
+                                <i class="fas fa-external-link-alt"></i>
+                                Demo
+                            </a>
+                        ` : ''}
+                        ${project.github ? `
+                            <a href="${project.github}" class="project-link github-link" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-github"></i>
+                                Code
+                            </a>
+                        ` : ''}
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
 }
 
-// Map controls functionality
+// Initialize portfolio when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    const mapToggleBtn = document.getElementById('mapToggle');
-    const directionsBtn = document.getElementById('directionsBtn');
-    const mapElement = document.getElementById('map');
-    
-    // Fullscreen toggle
-    mapToggleBtn.addEventListener('click', () => {
-        if (!isFullscreen) {
-            // Enter fullscreen
-            const overlay = document.createElement('div');
-            overlay.className = 'map-fullscreen-overlay';
-            document.body.appendChild(overlay);
-            
-            const closeBtn = document.createElement('button');
-            closeBtn.className = 'map-close-btn';
-            closeBtn.innerHTML = '<i class="fas fa-times"></i>';
-            mapElement.appendChild(closeBtn);
-            
-            mapElement.classList.add('map-fullscreen');
-            document.body.style.overflow = 'hidden';
-            
-            mapToggleBtn.innerHTML = '<i class="fas fa-compress"></i><span>Exit Fullscreen</span>';
-            isFullscreen = true;
-            
-            // Trigger map resize
-            setTimeout(() => {
-                if (map) {
-                    google.maps.event.trigger(map, 'resize');
-                    map.setCenter({ lat: 23.8103, lng: 90.4125 });
-                }
-            }, 300);
-            
-            // Close fullscreen handlers
-            const exitFullscreen = () => {
-                mapElement.classList.remove('map-fullscreen');
-                document.body.style.overflow = '';
-                overlay.remove();
-                closeBtn.remove();
-                mapToggleBtn.innerHTML = '<i class="fas fa-expand"></i><span>Fullscreen</span>';
-                isFullscreen = false;
-                
-                // Trigger map resize
-                setTimeout(() => {
-                    if (map) {
-                        google.maps.event.trigger(map, 'resize');
-                        map.setCenter({ lat: 23.8103, lng: 90.4125 });
-                    }
-                }, 300);
-            };
-            
-            closeBtn.addEventListener('click', exitFullscreen);
-            overlay.addEventListener('click', exitFullscreen);
-            
-            // ESC key to exit fullscreen
-            const handleEscape = (e) => {
-                if (e.key === 'Escape' && isFullscreen) {
-                    exitFullscreen();
-                    document.removeEventListener('keydown', handleEscape);
-                }
-            };
-            document.addEventListener('keydown', handleEscape);
-            
-        }
-    });
-    
-    // Directions button
-    directionsBtn.addEventListener('click', () => {
-        const destination = 'Dhaka, Bangladesh';
-        const url = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}`;
-        window.open(url, '_blank');
-    });
+    new Portfolio();
 });
 
-// Fallback if Google Maps fails to load
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        const mapElement = document.getElementById('map');
-        const loadingElement = mapElement.querySelector('.map-loading');
+// Smooth scroll polyfill for older browsers
+if (!('scrollBehavior' in document.documentElement.style)) {
+    const smoothScrollTo = (element) => {
+        const targetPosition = element.offsetTop - 64; // Account for navbar height
+        const startPosition = window.pageYOffset;
+        const distance = targetPosition - startPosition;
+        const duration = 1000;
+        let start = null;
         
-        if (loadingElement && typeof google === 'undefined') {
-            loadingElement.innerHTML = `
-                <i class="fas fa-map-marked-alt" style="font-size: 2rem; margin-bottom: 1rem; color: #3b82f6;"></i>
-                <p>Map temporarily unavailable</p>
-                <p style="font-size: 0.875rem; margin-top: 0.5rem;">Please check your internet connection</p>
-            `;
-        }
-    }, 5000);
-});
-
-// Make initMap globally available
-window.initMap = initMap;
+        const animation = (currentTime) => {
+            if (start === null) start = currentTime;
+            const timeElapsed = currentTime - start;
+            const run = ease(timeElapsed, startPosition, distance, duration);
+            window.scrollTo(0, run);
+            if (timeElapsed < duration) requestAnimationFrame(animation);
+        };
+        
+        const ease = (t, b, c, d) => {
+            t /= d / 2;
+            if (t < 1) return c / 2 * t * t + b;
+            t--;
+            return -c / 2 * (t * (t - 2) - 1) + b;
+        };
+        
+        requestAnimationFrame(animation);
+    };
+    
+    // Override smooth scroll behavior
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                smoothScrollTo(target);
+            }
+        });
+    });
+}
