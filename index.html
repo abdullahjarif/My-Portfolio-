@@ -3,467 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Responsive Portfolio</title>
-    <link rel="stylesheet" href="./css/styles.css">
+    <title>Abdullah Jarif - Full Stack Developer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <a href="#home" class="logo">Portfolio.</a>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner-container">
+                <div class="loading-spinner"></div>
+                <div class="loading-spinner-inner"></div>
+                <div class="loading-spinner-reverse"></div>
+            </div>
+            
+            <h2 class="loading-title">
+                <span class="gradient-text">Abdullah Jarif</span>
+            </h2>
+            <h3 class="loading-subtitle">Portfolio</h3>
+            
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill">
+                        <div class="progress-shine"></div>
+                    </div>
+                </div>
                 
-                <nav class="navbar" id="navbar">
-                    <a href="#home" class="nav-link active">Home</a>
-                    <a href="#about" class="nav-link">About</a>
-                    <a href="#education" class="nav-link">Education</a>
-                    <a href="#skills" class="nav-link">Skills</a>
-                    <a href="#services" class="nav-link">Services</a>
-                    <a href="#contact" class="nav-link">Contact</a>
-                </nav>
-
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars" id="menuIcon"></i>
-                </button>
+                <div class="progress-info">
+                    <p class="loading-text" id="loading-text">Initializing...</p>
+                    <p class="loading-percentage" id="loading-percentage">0%</p>
+                </div>
             </div>
-
-            <!-- Mobile Navigation -->
-            <nav class="mobile-nav" id="mobileNav">
-                <a href="#home" class="mobile-nav-link">Home</a>
-                <a href="#about" class="mobile-nav-link">About</a>
-                <a href="#education" class="mobile-nav-link">Education</a>
-                <a href="#skills" class="mobile-nav-link">Skills</a>
-                <a href="#services" class="mobile-nav-link">Services</a>
-                <a href="#contact" class="mobile-nav-link">Contact</a>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h3 class="hero-greeting">Hi, It's Me</h3>
-                    <h1 class="hero-name">Abdullah Jarif</h1>
-                    <h3 class="hero-role">
-                        And I'm a <span class="typed-text" id="typedText">Full Stack Developer</span><span class="cursor">|</span>
-                    </h3>
-                    <p class="hero-description">
-                        Of Tech Wisdom Web Solution LTD with extensive experience of over 3 years. 
-                        Also expertise is to create and Website Design, Frontend Design, Backend Develop and many more...
-                    </p>
-
-                    <div class="social-links">
-                        <a href="https://www.facebook.com/mustakim.jarif.393" target="_blank" aria-label="Facebook">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                        <a href="https://github.com/abdullahjarif" target="_blank" aria-label="GitHub">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/abdullah-jarif-28414a24a/" target="_blank" aria-label="LinkedIn">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="mailto:22-46386-1@student.aiub.edu" aria-label="Email">
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                    </div>
-
-                    <button class="btn-primary">
-                        <i class="fas fa-download"></i>
-                        Download CV
-                    </button>
-                </div>
-
-                <div class="hero-image">
-                    <div class="image-container">
-                        <img src="./images/myself.png" class="profile-img" alt="Abdullah Jarif">
-                        <div class="image-overlay"></div>
-                    </div>
-                </div>
+            
+            <div class="loading-dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="about-content">
-                <div class="about-image">
-                    <div class="image-wrapper">
-                        <img src="./images/about_me.jpg" alt="About Abdullah Jarif">
-                        <div class="image-gradient"></div>
-                    </div>
-                </div>
+    <!-- Animated Background -->
+    <div class="background-animation">
+        <div class="gradient-bg"></div>
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+            <div class="shape shape-5"></div>
+            <div class="shape shape-6"></div>
+        </div>
+        <div class="mesh-overlay"></div>
+    </div>
 
-                <div class="about-text">
-                    <h2 class="section-title">
-                        About <span class="text-accent">Me</span>
-                    </h2>
-                    <h3 class="about-subtitle">Full Stack Developer</h3>
-                    <p class="about-description">
-                        A passionate Full Stack Developer with a strong foundation in both frontend and backend technologies. 
-                        Skilled in both frontend and backend development, ensuring seamless user experiences and powerful functionality. 
-                        Experienced with version control (Git/GitHub), RESTful APIs.
-                    </p>
-
-                    <div class="skills-highlights">
-                        <div class="skill-item">
-                            <i class="fas fa-code"></i>
-                            <span>Front-end Development</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fa-solid fa-webhook"></i>
-                            <span>Back-end Development</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fas fa-database"></i>
-                            <span>E-commerce and Payment Integration</span>
-                        </div>
-                        <div class="skill-item">
-                            <i class="fa-solid fa-server"></i>
-                            <span>Custom Web Application Development</span>
-                        </div>
-                    </div>
-
-                    <button class="btn-primary">Read More</button>
-                </div>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text gradient-text">
+                    <a href="#home">Abdullah Jarif</a>
+                </span>
+            </div>
+            
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link" data-section="home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link" data-section="about">About Me</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#skills" class="nav-link" data-section="skills">Skills</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#education" class="nav-link" data-section="education">Education</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#publications" class="nav-link" data-section="publications">Publications</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+                </li>
+            </ul>
+            
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
             </div>
         </div>
-    </section>
+    </nav>
 
-    <!-- Education Section -->
-    <section id="education" class="education">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">
-                    <span class="text-accent">Educational</span> Background
-                </h2>
-                <p class="section-subtitle">My Educational Institutions</p>
-            </div>
-
-            <div class="education-grid">
-                <div class="education-card" data-color="blue">
-                    <div class="card-icon">A</div>
-                    <h3 class="card-title">AIUB</h3>
-                    <p class="card-description">
-                        408/1, Kuratoli, 1229
-                        <br><br>
-                        Bachelor of Science in Computer Science and Engineering
-                    </p>
-                    <p class="card-period">January 2022 to Present</p>
-                    <a href="https://www.aiub.edu/" target="_blank" class="card-link">
-                        Learn More <i class="fas fa-chevron-right"></i>
-                    </a>
-                </div>
-
-                <div class="education-card" data-color="purple">
-                    <div class="card-icon">F</div>
-                    <h3 class="card-title">FENI GOVT. COLLEGE</h3>
-                    <p class="card-description">
-                        Feni Sadar, Feni, 3900
-                        <br><br>
-                        Higher Secondary Certificate
-                    </p>
-                    <p class="card-period">April 2018 to 2020</p>
-                    <a href="https://fgc.gov.bd/" target="_blank" class="card-link" style="margin-top: 27px;">
-                        Learn More <i class="fas fa-chevron-right"></i>
-                    </a>
-                </div>
-
-                <div class="education-card" data-color="green">
-                    <div class="card-icon">C</div>
-                    <h3 class="card-title">CHHAGALNAIYA ACADEMY</h3>
-                    <p class="card-description">
-                        Chhagalnaiya, Feni, 3910
-                        <br><br>
-                        Secondary School Certificate
-                    </p>
-                    <p class="card-period">2007 to 2018</p>
-                    <a href="https://www.facebook.com/share/g/16QEDzQszU/" target="_blank" class="card-link" style="margin-top: 27px;">
-                        Learn More <i class="fas fa-chevron-right"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">
-                    MY <span class="text-accent">SKILLS</span>
-                </h2>
-            </div>
-
-            <!-- Technical Skills -->
-            <div class="skills-section">
-                <h3 class="skills-subtitle">Technical Skills</h3>
-                <div class="technical-skills">
-                    <div class="skill-item-tech">
-                        <div class="skill-icon">🌐</div>
-                        <h4 class="skill-name">HTML</h4>
-                        <div class="progress-bar">
-                            <div class="progress-fill" data-width="90"></div>
+    <!-- Main Content -->
+    <main class="main-content" id="main-content">
+        <!-- Home Section -->
+        <section id="home" class="section home-section">
+            <div class="container">
+                <div class="hero-content glass">
+                    <div class="hero-text">
+                        <h1 class="hero-title">
+                            <span class="gradient-text" id="typing-text"></span>
+                            <span class="cursor">|</span>
+                        </h1>
+                        <p class="hero-subtitle" id="typing-subtitle"></p>
+                        <div class="hero-buttons">
+                            <button class="btn-primary" data-action="contact">Get In Touch</button>
+                            <button class="btn-secondary" data-action="projects">View Projects</button>
                         </div>
-                        <span class="skill-percentage">90%</span>
                     </div>
-
-                    <div class="skill-item-tech">
-                        <div class="skill-icon">🎨</div>
-                        <h4 class="skill-name">CSS</h4>
-                        <div class="progress-bar">
-                            <div class="progress-fill" data-width="85"></div>
+                    <div class="hero-image">
+                        <div class="profile-avatar">
+                            <div class="avatar-content">
+                                <img src="./images/myself.png" alt="Abdullah Jarif">
+                            </div>
+                            <div class="avatar-dot avatar-dot-1"></div>
+                            <div class="avatar-dot avatar-dot-2"></div>
                         </div>
-                        <span class="skill-percentage">85%</span>
-                    </div>
-
-                    <div class="skill-item-tech">
-                        <div class="skill-icon">⚡</div>
-                        <h4 class="skill-name">JavaScript</h4>
-                        <div class="progress-bar">
-                            <div class="progress-fill" data-width="80"></div>
-                        </div>
-                        <span class="skill-percentage">80%</span>
-                    </div>
-
-                    <div class="skill-item-tech">
-                        <div class="skill-icon">🐍</div>
-                        <h4 class="skill-name">Python</h4>
-                        <div class="progress-bar">
-                            <div class="progress-fill" data-width="75"></div>
-                        </div>
-                        <span class="skill-percentage">75%</span>
-                    </div>
-
-                    <div class="skill-item-tech">
-                        <div class="skill-icon">⚛️</div>
-                        <h4 class="skill-name">React</h4>
-                        <div class="progress-bar">
-                            <div class="progress-fill" data-width="85"></div>
-                        </div>
-                        <span class="skill-percentage">85%</span>
-                    </div>
-
-                    <div class="skill-item-tech">
-                        <div class="skill-icon">🔧</div>
-                        <h4 class="skill-name">PHP</h4>
-                        <div class="progress-bar">
-                            <div class="progress-fill" data-width="70"></div>
-                        </div>
-                        <span class="skill-percentage">70%</span>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Professional Skills -->
-            <div class="skills-section">
-                <h3 class="skills-subtitle">Professional Skills</h3>
-                <div class="professional-skills">
-                    <div class="circular-skill">
-                        <div class="circular-progress" data-percentage="90">
-                            <svg class="progress-ring" width="120" height="120">
-                                <circle class="progress-ring-circle" cx="60" cy="60" r="50"></circle>
-                                <circle class="progress-ring-fill" cx="60" cy="60" r="50"></circle>
-                            </svg>
-                            <div class="skill-percentage-text">90%</div>
-                        </div>
-                        <h4 class="skill-name">Creativity</h4>
-                    </div>
-
-                    <div class="circular-skill">
-                        <div class="circular-progress" data-percentage="85">
-                            <svg class="progress-ring" width="120" height="120">
-                                <circle class="progress-ring-circle" cx="60" cy="60" r="50"></circle>
-                                <circle class="progress-ring-fill" cx="60" cy="60" r="50"></circle>
-                            </svg>
-                            <div class="skill-percentage-text">85%</div>
-                        </div>
-                        <h4 class="skill-name">Communication</h4>
-                    </div>
-
-                    <div class="circular-skill">
-                        <div class="circular-progress" data-percentage="88">
-                            <svg class="progress-ring" width="120" height="120">
-                                <circle class="progress-ring-circle" cx="60" cy="60" r="50"></circle>
-                                <circle class="progress-ring-fill" cx="60" cy="60" r="50"></circle>
-                            </svg>
-                            <div class="skill-percentage-text">88%</div>
-                        </div>
-                        <h4 class="skill-name">Problem Solving</h4>
-                    </div>
-
-                    <div class="circular-skill">
-                        <div class="circular-progress" data-percentage="80">
-                            <svg class="progress-ring" width="120" height="120">
-                                <circle class="progress-ring-circle" cx="60" cy="60" r="50"></circle>
-                                <circle class="progress-ring-fill" cx="60" cy="60" r="50"></circle>
-                            </svg>
-                            <div class="skill-percentage-text">80%</div>
-                        </div>
-                        <h4 class="skill-name">Team Work</h4>
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="section-title gradient-text">About Me</h2>
+                <div class="about-content glass">
+                    <div class="about-text">
+                        <p class="about-description" id="about-description"></p>
+                        <div class="about-highlights" id="about-highlights"></div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">
-                    MY <span class="text-accent">SERVICES</span>
-                </h2>
+        <!-- Skills Section -->
+        <section id="skills" class="section">
+            <div class="container">
+                <h2 class="section-title gradient-text">Skills</h2>
+                <div class="skills-container" id="skills-container"></div>
             </div>
+        </section>
 
-            <div class="services-grid">
-                <div class="service-card" data-color="blue">
-                    <div class="service-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3 class="service-title">Web Development</h3>
-                    <p class="service-description">
-                        Web Development Services as Full Stack Developer at Tech Wisdom Web Solution Ltd. Specialize in delivering cutting-edge web development services tailored to meet the unique needs of your business.
-                    </p>
-                    <button class="btn-secondary">Read More</button>
-                </div>
-
-                <div class="service-card" data-color="purple">
-                    <div class="service-icon">
-                        <i class="fas fa-palette"></i>
-                    </div>
-                    <h3 class="service-title">UI/UX Design</h3>
-                    <p class="service-description">
-                        As a passionate UI/UX Designer, I specialize in crafting user-centered designs that blend functionality with aesthetics.
-                    </p>
-                    <button class="btn-secondary" style="margin-top: 55px;">Read More</button>
-                </div>
-
-                <div class="service-card" data-color="green">
-                    <div class="service-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3 class="service-title">Data Scientist Engineer</h3>
-                    <p class="service-description">
-                        Elevate your business with data-driven insights and smart automation. As a dedicated Data Scientist Engineer at Tech Wisdom Web Solution LTD, I specialize in transforming raw data into actionable intelligence.
-                    </p>
-                    <button class="btn-secondary">Read More</button>
-                </div>
+        <!-- Education Section -->
+        <section id="education" class="section">
+            <div class="container">
+                <h2 class="section-title gradient-text">Education</h2>
+                <div class="education-timeline" id="education-timeline"></div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact Section -->
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">
-                    Contact <span class="text-accent">Me</span>
-                </h2>
-                <p class="section-subtitle">Let's work together</p>
+        <!-- Publications Section -->
+        <section id="publications" class="section">
+            <div class="container">
+                <h2 class="section-title gradient-text">Publications</h2>
+                <div class="publications-grid" id="publications-grid"></div>
             </div>
+        </section>
 
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3 class="contact-title">Get in Touch</h3>
+        <!-- Projects Section -->
+        <section id="projects" class="section">
+            <div class="container">
+                <h2 class="section-title gradient-text">Projects</h2>
+                <div class="projects-filter" id="projects-filter">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="web">Web Apps</button>
+                    <button class="filter-btn" data-filter="mobile">Mobile</button>
+                    <button class="filter-btn" data-filter="api">APIs</button>
+                </div>
+                <div class="projects-grid" id="projects-grid"></div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <div class="container">
+                <h2 class="section-title gradient-text">Get In Touch</h2>
+                <div class="contact-content">
+                    <div class="contact-info glass">
+                        <h3>Let's Connect</h3>
+                        <div class="contact-items">
+                            <div class="contact-item">
+                                <div class="contact-icon email-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <p class="contact-label">Email</p>
+                                    <p class="contact-value">jarif.abdullah2001@gmail.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon phone-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <p class="contact-label">Phone</p>
+                                    <p class="contact-value">+8801826494973</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon location-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <p class="contact-label">Location</p>
+                                    <p class="contact-value">Dhaka, Bangladesh</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="social-section">
+                            <h4>Follow Me</h4>
+                            <div class="social-links">
+                                <a href="https://github.com/abdullahjarif" class="social-link github-link">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="https://www.linkedin.com/in/abdullah-jarif-28414a24a" class="social-link linkedin-link">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                                <a href="#" class="social-link twitter-link">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                     
-                    <div class="contact-items">
-                        <div class="contact-item">
-                            <div class="contact-icon email">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h4>Email</h4>
-                                <p>22-46386-1@student.aiub.edu</p>
-                            </div>
-                        </div>
-
-                        <div class="contact-item">
-                            <div class="contact-icon phone">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h4>Phone</h4>
-                                <p>+880 123 456 789</p>
-                            </div>
-                        </div>
-
-                        <div class="contact-item">
-                            <div class="contact-icon location">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h4>Location</h4>
-                                <p>Ahmedbag Buddho Mandir Road, Shabujbag, Dhaka-1214.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Google Map -->
-                    <div class="map-container">
-                        <h4 class="map-title">Find Me Here</h4>
-                        <div id="map" class="google-map">
-                            <div class="map-loading">
-                                <i class="fas fa-spinner fa-spin"></i>
-                                <p>Loading Map...</p>
-                            </div>
-                        </div>
-                        <div class="map-controls">
-                            <button id="mapToggle" class="map-toggle-btn">
-                                <i class="fas fa-expand"></i>
-                                <span>Fullscreen</span>
-                            </button>
-                            <button id="directionsBtn" class="directions-btn">
-                                <i class="fas fa-directions"></i>
-                                <span>Get Directions</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="contact-form-container">
-                    <form class="contact-form" id="contactForm">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" id="name" name="name" placeholder="Your Name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
-                            </div>
-                        </div>
-                        
+                    <form class="contact-form glass" id="contact-form">
+                        <h3>Send Message</h3>
                         <div class="form-group">
-                            <label for="subject">Subject</label>
-                            <input type="text" id="subject" name="subject" placeholder="Project Discussion" required>
+                            <input type="text" id="form-name" name="name" placeholder="Your Name" required>
                         </div>
-                        
                         <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+                            <input type="email" id="form-email" name="email" placeholder="Your Email" required>
                         </div>
-                        
-                        <button type="submit" class="btn-primary full-width">
+                        <div class="form-group">
+                            <textarea id="form-message" name="message" placeholder="Your Message" rows="6" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit" id="submit-btn">
                             <i class="fas fa-paper-plane"></i>
-                            Send Message
+                            <span>Send Message</span>
                         </button>
+                        <div class="form-status" id="form-status"></div>
                     </form>
                 </div>
             </div>
-        </div>
-    </section>
-
+        </section>
+    </main>
+    
+    <script src="./js/portfolio-data.js"></script>
     <script src="./js/myScript.js"></script>
-
-    <!-- Google Maps API -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFxbQ24xsXju9pDfLz43U4MySv6UyUnvI&callback=initMap" async defer></script>
 </body>
 </html>
